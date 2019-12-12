@@ -4,8 +4,12 @@ import numpy as np
 import pandas
 
 
-def func(x, a, b, c):
-    return a * np.exp(-b * x) + c
+def func(x, a, b):
+    return a * np.exp(b * x)
+
+
+def r2():
+    pass
 
 
 class Exponential:
@@ -15,11 +19,10 @@ class Exponential:
         y = np.array([item for item in data['Y/Ymax']])
         x = np.array([item for item in data['ET/Etmax']])
         popt, pcov = curve_fit(func, x, y)
-        print(popt)
-        plt.plot(x, func(x, *popt), 'r-',
-                 label='fit: a=%5.3f, b=%5.3f, c=%5.3f' % tuple(popt))
+        plt.title(f"Exponential of {file_name}")
+        plt.plot(x, func(x, *popt), 'r--', label=f'y = {popt[0]}E^{popt[1]}*X')
         plt.plot(x, y, 'x')
-        plt.xlabel('x')
-        plt.ylabel('y')
+        plt.xlabel('ET/Etmax')
+        plt.ylabel('Y/Ymax')
         plt.legend()
         plt.show()
