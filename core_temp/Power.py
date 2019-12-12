@@ -5,10 +5,10 @@ import pandas
 
 
 def func(x, a, b):
-    return a * np.exp(b * x)
+    return a * (b ** x)
 
 
-class Exponential:
+class Power:
     @staticmethod
     def run(file_name):
         data = pandas.read_csv(f'./data/{file_name}')
@@ -16,7 +16,7 @@ class Exponential:
         x = np.array([item for item in data['ET/Etmax']])
         popt, pcov = curve_fit(func, x, y)
 
-        y_bar = np.mean(y)
+        y_bar =  np.sum(y)/len(y)
         sst = 0.0
         for i in range(len(y)):
             sst += pow(y[i] - y_bar, 2)
@@ -24,10 +24,10 @@ class Exponential:
         y_hat = func(x, *popt)
         for i in range(len(y_hat)):
             ss_reg += pow(y_hat[i] - y_bar, 2)
-        print(ss_reg/sst)
+        print(ss_reg / sst)
         print('---')
-        plt.title(f"Exponential of {file_name}")
-        plt.plot(x, func(x, *popt), 'r--', label=f'y = {popt[0]}E^{popt[1]}*X \n, RS {ss_reg / sst}')
+        plt.title(f"Power of {file_name}")
+        plt.plot(x, func(x, *popt), 'r--', label=f'y = {popt[0]}^{popt[1]}*X , RS {ss_reg / sst}')
         plt.plot(x, y, 'x')
         plt.xlabel('ET/Etmax')
         plt.ylabel('Y/Ymax')
