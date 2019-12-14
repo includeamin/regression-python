@@ -4,14 +4,16 @@ import numpy as np
 import pandas
 
 
-def func(x, a, b ,c):
-    return a*x**2 + b*x + c
+def func(x, a, b, c):
+    return a * x ** 2 + b * x + c
 
 
 class Polynomial:
     @staticmethod
     def run(file_name):
         data = pandas.read_csv(f'./data/{file_name}')
+        data = data.sort_values(by='ET/Etmax')
+
         y = np.array([item for item in data['Y/Ymax']])
         x = np.array([item for item in data['ET/Etmax']])
         popt, pcov = curve_fit(func, x, y)
@@ -25,8 +27,10 @@ class Polynomial:
         for i in range(len(y_hat)):
             ss_reg += pow(y_hat[i] - y_bar, 2)
         print('---')
-        plt.title(f"Polymonial of {file_name} , RS {ss_reg / sst}")
-        plt.plot(x, func(x, *popt), 'r--', label=f'y = {popt[0]}^{popt[1]}*X')
+        plt.title(f"Polynomial of {file_name}")
+        plt.plot(x, func(x, *popt), 'r--',
+                 label=f'y = {"{0:.4f}".format(popt[0])}x^2 + {"{0:.4f}".format(popt[1])}x + {"{0:.4f}".format(popt[2])}\n'
+                       f' RS {"{0:.4f}".format(ss_reg / sst)}')
         plt.plot(x, y, 'x')
         plt.xlabel('ET/Etmax')
         plt.ylabel('Y/Ymax')

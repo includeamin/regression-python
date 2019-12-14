@@ -13,6 +13,8 @@ class Power:
     def run(file_name):
 
         data = pandas.read_csv(f'./data/{file_name}')
+        data = data.sort_values(by='ET/Etmax')
+
         y = np.array([item for item in data['Y/Ymax']])
         x = np.array([item for item in data['ET/Etmax']])
 
@@ -28,7 +30,8 @@ class Power:
         print(ss_reg / sst)
         print('---')
         plt.title(f"Power of {file_name}")
-        plt.plot(x, func(x, *popt), 'r--', label=f'y = {popt[0]}^{popt[1]}*X , RS {ss_reg / sst}')
+        plt.plot(x, func(x, *popt), 'r--',
+                 label=f'y = {"{0:.4f}".format(popt[0])}*x^{"{0:.4f}".format(popt[1])} , RS {"{0:.4f}".format(ss_reg / sst)}')
         plt.plot(x, y, 'x')
         plt.xlabel('ET/Etmax')
         plt.ylabel('Y/Ymax')

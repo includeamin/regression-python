@@ -12,6 +12,8 @@ class Linear:
     @staticmethod
     def run(file_name):
         data = pandas.read_csv(f'./data/{file_name}')
+        data = data.sort_values(by='ET/Etmax')
+
         y = np.array([item for item in data['Y/Ymax']])
         x = np.array([item for item in data['ET/Etmax']])
         popt, pcov = curve_fit(func, x, y)
@@ -27,16 +29,10 @@ class Linear:
         print(ss_reg / sst)
         print('---')
         plt.title(f"Linear of {file_name}")
-        plt.plot(x, func(x, *popt), 'r--', label=f'y = {popt[0]}^{popt[1]}*X , RS {ss_reg / sst}')
+        plt.plot(x, func(x, *popt), 'r--',
+                 label=f'y = {"{0:.4f}".format(popt[0])}x + {"{0:.4f}".format(popt[1])} , RS {"{0:.4f}".format(ss_reg / sst)}')
         plt.plot(x, y, 'x')
         plt.xlabel('ET/Etmax')
         plt.ylabel('Y/Ymax')
         plt.legend()
         plt.show()
-
-# top = len(x) * (np.sum(x * y) - np.sum(x) * np.sum(y))
-# under = len(x) * np.sum(np.power(x, 2)) - np.power(np.sum(x), 2) - \
-#         len(x) * np.sum(np.power(y, 2)) - np.power(np.sum(y), 2)
-#
-# r = top / under ** 1 / 2
-# print(r**2)

@@ -19,7 +19,7 @@ crop_list = [
 
 if __name__ == '__main__':
     for item in crop_list:
-       temp_EXP.run(item)
+       temp_polynomial.run(item)
     # for item in crop_list:
     #     Linear.run(item)
     #
