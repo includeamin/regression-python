@@ -5,18 +5,19 @@ import pandas
 
 
 def func(x, a, b):
-    return a * (b ** x)
+    return a * (x ** b)
 
 
 class Power:
     @staticmethod
     def run(file_name):
+
         data = pandas.read_csv(f'./data/{file_name}')
         y = np.array([item for item in data['Y/Ymax']])
         x = np.array([item for item in data['ET/Etmax']])
-        popt, pcov = curve_fit(func, x, y)
 
-        y_bar =  np.sum(y)/len(y)
+        popt, pcov = curve_fit(func, x, y)
+        y_bar = np.sum(y) / len(y)
         sst = 0.0
         for i in range(len(y)):
             sst += pow(y[i] - y_bar, 2)

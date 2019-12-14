@@ -19,10 +19,10 @@ class Power:
         def func(x, a, b):
             return a * (b ** x)
 
-        popt, pcov = curve_fit(lambda fx, a, b: a * fx ** -b, x, y)
+        popt, pcov = curve_fit(lambda fx, a, b: a * fx ** b, x, y)
         print(popt, pcov)
         x_linspace = np.linspace(0, max(x), len(y))
-        power_y = popt[0] * x ** -popt[1]
+        power_y = popt[0] * x ** popt[1]
         plt.scatter(x, y, label='actual data')
         plt.plot(x_linspace, power_y, label='power-fit')
         r = r2_score(y, power_y)

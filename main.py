@@ -9,7 +9,7 @@ from core_temp.Polynomial import Polynomial as temp_polynomial
 crop_list = [
     'grainmaize.csv',
     "Apple.csv",
-    "grainmaize.csv",
+    "citrus.csv",
     "rice.csv",
     "soybean.csv",
     'srgum.csv',
@@ -19,7 +19,7 @@ crop_list = [
 
 if __name__ == '__main__':
     for item in crop_list:
-       temp_linear.run(item)
+       temp_EXP.run(item)
     # for item in crop_list:
     #     Linear.run(item)
     #

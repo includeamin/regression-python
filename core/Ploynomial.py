@@ -30,5 +30,5 @@ class Polynomial:
         xp = np.linspace(0, 1, len(y))
         _ = plt.plot(x, y, '.', xp, p(xp), '-', xp, p30(xp), '--')
         r2 = ssreg / sstot
-        plt.text(.001, .7, f"R Square {'%.4f' % r2}", fontsize=12)
+        plt.text(.001, .7, f"{file_name} {'%.4f' % r2}", fontsize=12)
         plt.show()
