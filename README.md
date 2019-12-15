@@ -8,3 +8,8 @@
   - Y = AX^B
 - Exponential
   - Y = Ae^BX
+
+##Samples
+
+# Exponential
+![Exponential](./output/Apple.csv-Exponential.png)
