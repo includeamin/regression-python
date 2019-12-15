@@ -1,36 +1,49 @@
-import numpy as np
-from numpy import linspace
+import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
-from sklearn.linear_model import LinearRegression
-from matplotlib import pyplot as plt
+import numpy as np
 import pandas
-from sklearn.metrics import r2_score
+
+
+def func(x, a, b):
+    return a * (x ** b)
 
 
 class Power:
     @staticmethod
     def run(file_name):
+
         data = pandas.read_csv(f'./data/{file_name}')
+        data = data.sort_values(by='ET/Etmax')
+
         y = np.array([item for item in data['Y/Ymax']])
         x = np.array([item for item in data['ET/Etmax']])
-        x = np.array(x)
-        y = np.array(y)
+        new_x = np.linspace(0, max(x), 200)
 
-        def func(x, a, b):
-            return a * (b ** x)
-
-        popt, pcov = curve_fit(lambda fx, a, b: a * fx ** b, x, y)
-        print(popt, pcov)
-        x_linspace = np.linspace(0, max(x), len(y))
-        power_y = popt[0] * x ** popt[1]
-        plt.scatter(x, y, label='actual data')
-        plt.plot(x_linspace, power_y, label='power-fit')
-        r = r2_score(y, power_y)
-        plt.text(.001, .8, f" R2 = {r}", fontsize=12)
-        plt.title("POWER Regression")
-        plt.xlabel('ET/Etmax', fontsize=11)
-        plt.ylabel('Y/Ymax', fontsize=11)
-        plt.text(.001, .7, f"R Square {'%.4f' % r}", fontsize=12)
-        # plt.tight_layout()
+        popt, pcov = curve_fit(func, x, y)
+        y_bar = np.sum(y) / len(y)
+        sst = 0.0
+        for i in range(len(y)):
+            sst += pow(y[i] - y_bar, 2)
+        ss_reg = 0.0
+        y_hat = func(x, *popt)
+        for i in range(len(y_hat)):
+            ss_reg += pow(y_hat[i] - y_bar, 2)
+        print(ss_reg / sst)
+        print('---')
+        plt.title(f"Power of {file_name}")
+        plt.plot(new_x, func(new_x, *popt), 'r--',
+                 label=f'y = {"{0:.4f}".format(popt[0])}*x^{"{0:.4f}".format(popt[1])} , RS {"{0:.4f}".format(ss_reg / sst)}')
+        plt.plot(x, y, 'x')
+        plt.xlabel('ET/Etmax')
+        plt.ylabel('Y/Ymax')
         plt.legend()
+        plt.savefig(f'./output/{file_name}-{Power.__name__}.png')
+
         plt.show()
+
+# top = len(x) * (np.sum(x * y) - np.sum(x) * np.sum(y))
+# under = len(x) * np.sum(np.power(x, 2)) - np.power(np.sum(x), 2) - \
+#         len(x) * np.sum(np.power(y, 2)) - np.power(np.sum(y), 2)
+#
+# r = top / under ** 1 / 2
+# print(r**2)
