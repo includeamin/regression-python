@@ -17,9 +17,9 @@ crop_list = [
 if __name__ == '__main__':
     # for item in crop_list:
     #     temp_polynomial.run(item)
-    # for item in crop_list:
-    #     temp_EXP.run(item)
     for item in crop_list:
-        temp_linear.run(item)
+        temp_EXP.run(item)
+    # for item in crop_list:
+    #     temp_linear.run(item)
     # for item in crop_list:
     #     temp_Power.run(item)

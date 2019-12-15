@@ -31,7 +31,7 @@ class Exponential:
 
         # xx = np.linspace(0, max(x), len(y))
         plt.plot(new_x, func(new_x, *popt), 'r-',
-                 label=f'y = {"{0:.4f}".format(popt[0])}*e^{"{0:.4f}".format(popt[1])}')
+                 label=f'y = {"{0:.4f}".format(popt[0])}*e^{"{0:.4f}x".format(popt[1])}')
         plt.plot(x, y, 'x')
         plt.xlabel('ET/Etmax')
         plt.ylabel('Y/Ymax')
