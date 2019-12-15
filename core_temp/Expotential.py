@@ -34,5 +34,5 @@ class Exponential:
         plt.xlabel('ET/Etmax')
         plt.ylabel('Y/Ymax')
         plt.legend()
-        plt.show()
         plt.savefig(f'./output/{file_name}-{Exponential.__name__}.png')
+        plt.show()
