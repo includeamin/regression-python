@@ -5,7 +5,7 @@ import pandas
 
 
 def func(x, a, b):
-    return b * x + a
+    return a * x + b
 
 
 class Linear:
