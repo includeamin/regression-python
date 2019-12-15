@@ -10,7 +10,7 @@
   - Y = Ae^BX
 
 ## Samples
- sample plot with equation and R square value
+ sample plots with equation and R square value
 ### Exponential
 ![Exponential](./output/Apple.csv-Exponential.png)
 ### Polynomial
