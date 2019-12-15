@@ -37,6 +37,8 @@ class Power:
         plt.ylabel('Y/Ymax')
         plt.legend()
         plt.show()
+        plt.savefig(f'./output/{file_name}-{Power.__name__}.png')
+
 
 # top = len(x) * (np.sum(x * y) - np.sum(x) * np.sum(y))
 # under = len(x) * np.sum(np.power(x, 2)) - np.power(np.sum(x), 2) - \

@@ -36,3 +36,5 @@ class Linear:
         plt.ylabel('Y/Ymax')
         plt.legend()
         plt.show()
+        plt.savefig(f'./output/{file_name}-{Linear.__name__}.png')
+
